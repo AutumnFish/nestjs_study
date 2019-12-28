@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Query, Header, Headers } from '@nestjs/common';
+import { Controller, Get, Req, Query, Headers, Param, Post, Body } from '@nestjs/common';
 
 @Controller('posts')
 export class PostsController {
@@ -37,6 +37,19 @@ export class PostsController {
     headers(@Headers() headers){
         console.log(headers)
         return '获取头部信息'
+    }
 
+    // 带参数的路由
+    @Get("/params/:id")
+    params(@Param() params){
+        return `你发送过来的id是:${params.id}`
+    }
+
+    // Post请求
+    @Post("simple")
+    // @Body 装饰器 解析body的内容
+    simple(@Body() body){
+        console.log(body)
+        return body
     }
 }
