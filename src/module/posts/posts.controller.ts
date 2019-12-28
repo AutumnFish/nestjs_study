@@ -1,9 +1,12 @@
-import { Controller, Get, Req, Query, Headers, Param, Post, Body, HttpException, HttpStatus, ForbiddenException, UseFilters, UsePipes, ValidationPipe, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Req, Query, Headers, Param, Post, Body, HttpException, HttpStatus, ForbiddenException, UseFilters, UsePipes, ValidationPipe, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { PostDataDTO } from './posts.dto';
 import { DemoService } from './providers/demo/demo.service';
 import { DemoFilter } from 'src/core/filters/demo.filter';
+import { DemoAuthGuard } from 'src/core/guards/demo-auth.guard';
 
 @Controller('posts')
+// 增加守卫
+@UseGuards(DemoAuthGuard)
 // @UseFilters(DemoFilter)
 export class PostsController {
     // 注入依赖的方法1

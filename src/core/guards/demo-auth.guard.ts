@@ -6,6 +6,12 @@ export class DemoAuthGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    return true;
+    // 返回true 请求通过
+    // 返回false 请求不通过
+    // return true;
+    // return false;
+    // 获取请求信息
+    const request = context.switchToHttp().getRequest()
+    return request.headers['token']==='secret'
   }
 }
