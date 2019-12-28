@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Query, Headers, Param, Post, Body, HttpException, HttpStatus, ForbiddenException, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Req, Query, Headers, Param, Post, Body, HttpException, HttpStatus, ForbiddenException, UseFilters, UsePipes, ValidationPipe, ParseIntPipe } from '@nestjs/common';
 import { PostDataDTO } from './posts.dto';
 import { DemoService } from './providers/demo/demo.service';
 import { DemoFilter } from 'src/core/filters/demo.filter';
@@ -103,4 +103,12 @@ export class PostsController {
         console.log(dto.title)
         return '你提交过来的数据是:'+ JSON.stringify(dto)
     }
+ // 带参数的路由
+ @Get("/id/:id")
+ // 直接解构出id
+ id(@Param('id',ParseIntPipe) id){
+     console.log(typeof id)
+     return `你发送过来的id是:${id}`
+ }
+    
 }
