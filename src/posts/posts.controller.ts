@@ -1,4 +1,5 @@
 import { Controller, Get, Req, Query, Headers, Param, Post, Body } from '@nestjs/common';
+import { PostDataDTO } from './posts.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -51,5 +52,13 @@ export class PostsController {
     simple(@Body() body){
         console.log(body)
         return body
+    }
+
+    // Post请求 并约定参数
+    @Post("dto")
+    dto(@Body() dto:PostDataDTO){
+        console.log(dto.id)
+        console.log(dto.title)
+        return '你提交过来的数据是:'+ JSON.stringify(dto)
     }
 }
