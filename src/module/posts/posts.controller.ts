@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Query, Headers, Param, Post, Body } from '@nestjs/common';
+import { Controller, Get, Req, Query, Headers, Param, Post, Body, HttpException, HttpStatus } from '@nestjs/common';
 import { PostDataDTO } from './posts.dto';
 import { DemoService } from './providers/demo/demo.service';
 
@@ -18,8 +18,16 @@ export class PostsController {
     // 直接写在构造函数上
     constructor(private readonly demoService:DemoService){}
 
-    @Get("getAll")
+
+    // 异常的接口
+    @Get("error")
+    error(){
+        // 状态码 403
+        throw new HttpException("没有权限",HttpStatus.FORBIDDEN)
+    }
+
     // 获取
+    @Get("getAll")
     getAll(){
         // 调用 findAll方法获取所有的数据
         return this.demoService.findAll()
