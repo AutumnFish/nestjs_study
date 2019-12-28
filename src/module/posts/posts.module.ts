@@ -7,3 +7,5 @@ import { DemoService } from './providers/demo/demo.service';
     providers:[DemoService]
 })
 export class PostsModule {}
+
+// 通过模块更好的对代码进行管理
