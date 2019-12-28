@@ -1,8 +1,10 @@
-import { Controller, Get, Req, Query, Headers, Param, Post, Body, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Req, Query, Headers, Param, Post, Body, HttpException, HttpStatus, ForbiddenException, UseFilters } from '@nestjs/common';
 import { PostDataDTO } from './posts.dto';
 import { DemoService } from './providers/demo/demo.service';
+import { DemoFilter } from 'src/core/filters/demo.filter';
 
 @Controller('posts')
+// @UseFilters(DemoFilter)
 export class PostsController {
     // 注入依赖的方法1
     // 定义只读 私有属性
@@ -21,9 +23,11 @@ export class PostsController {
 
     // 异常的接口
     @Get("error")
+    // @UseFilters(DemoFilter)
     error(){
         // 状态码 403
-        throw new HttpException("没有权限",HttpStatus.FORBIDDEN)
+        // throw new HttpException("没有权限",HttpStatus.FORBIDDEN)
+        throw new ForbiddenException("没有权限")
     }
 
     // 获取
