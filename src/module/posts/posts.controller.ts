@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Query, Headers, Param, Post, Body, HttpException, HttpStatus, ForbiddenException, UseFilters } from '@nestjs/common';
+import { Controller, Get, Req, Query, Headers, Param, Post, Body, HttpException, HttpStatus, ForbiddenException, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { PostDataDTO } from './posts.dto';
 import { DemoService } from './providers/demo/demo.service';
 import { DemoFilter } from 'src/core/filters/demo.filter';
@@ -97,6 +97,7 @@ export class PostsController {
 
     // Post请求 并约定参数
     @Post("dto")
+    @UsePipes(ValidationPipe)
     dto(@Body() dto:PostDataDTO){
         console.log(dto.id)
         console.log(dto.title)
