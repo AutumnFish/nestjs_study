@@ -13,16 +13,16 @@ import { LoggingInterceptor } from './core/intereptors/logging.interceptor';
   controllers: [AppController],
   providers: [
     AppService,
-    {
-      provide: APP_GUARD,
-      // 注册使用的守卫 为全局
-      useClass: DemoRolesGuard,
-    },
-    {
-      provide:APP_INTERCEPTOR,
-      // 使用全局拦截器
-      useClass:LoggingInterceptor
-    }
+    // {
+    //   provide: APP_GUARD,
+    //   // 注册使用的守卫 为全局
+    //   useClass: DemoRolesGuard,
+    // },
+    // {
+    //   provide:APP_INTERCEPTOR,
+    //   // 使用全局拦截器
+    //   useClass:LoggingInterceptor
+    // }
   ],
 })
 // 注册中间件

@@ -26,6 +26,7 @@ import { Roles } from 'src/core/decorator/roles.decorator';
 import { LoggingInterceptor } from 'src/core/intereptors/logging.interceptor';
 import { TransformInterceptor } from 'src/core/intereptors/transform.interceptor';
 import { User } from 'src/core/decorator/user.decorator';
+import { DemoPipe } from 'src/core/pipes/demo.pipe';
 
 @Controller('posts')
 // 增加守卫
@@ -61,7 +62,7 @@ export class PostsController {
   @Get('getAll')
   @Roles('member')
   @UseInterceptors(TransformInterceptor)
-  getAll(@User() user:Array<[]> ) {
+  getAll(@User('jack',DemoPipe) user:Array<[]> ) {
     console.log('getAll')
     console.log(user)
     // 调用 findAll方法获取所有的数据
@@ -138,7 +139,7 @@ export class PostsController {
   // 带参数的路由
   @Get('/id/:id')
   // 直接解构出id 并且进行类型转换
-  id(@Param('id', ParseIntPipe) id) {
+  id(@Param('id', ParseIntPipe,DemoPipe) id) {
     console.log(typeof id);
     return `你发送过来的id是:${id}`;
   }
