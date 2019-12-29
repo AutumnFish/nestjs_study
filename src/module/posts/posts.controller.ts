@@ -24,6 +24,8 @@ import { DemoFilter } from 'src/core/filters/demo.filter';
 import { DemoAuthGuard } from 'src/core/guards/demo-auth.guard';
 import { Roles } from 'src/core/decorator/roles.decorator';
 import { LoggingInterceptor } from 'src/core/intereptors/logging.interceptor';
+import { TransformInterceptor } from 'src/core/intereptors/transform.interceptor';
+import { User } from 'src/core/decorator/user.decorator';
 
 @Controller('posts')
 // 增加守卫
@@ -57,7 +59,11 @@ export class PostsController {
 
   // 获取
   @Get('getAll')
-  getAll() {
+  @Roles('member')
+  @UseInterceptors(TransformInterceptor)
+  getAll(@User() user:Array<[]> ) {
+    console.log('getAll')
+    console.log(user)
     // 调用 findAll方法获取所有的数据
     return this.demoService.findAll();
   }
@@ -131,7 +137,7 @@ export class PostsController {
   }
   // 带参数的路由
   @Get('/id/:id')
-  // 直接解构出id
+  // 直接解构出id 并且进行类型转换
   id(@Param('id', ParseIntPipe) id) {
     console.log(typeof id);
     return `你发送过来的id是:${id}`;
