@@ -4,8 +4,9 @@ import { AppService } from './app.service';
 
 import { PostsModule } from './module/posts/posts.module';
 import { DemoMiddleware } from './core/middlewares/demo.middleware';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { DemoRolesGuard } from './core/guards/demo-roles.guard';
+import { LoggingInterceptor } from './core/intereptors/logging.interceptor';
 
 @Module({
   imports: [PostsModule],
@@ -17,6 +18,11 @@ import { DemoRolesGuard } from './core/guards/demo-roles.guard';
       // 注册使用的守卫 为全局
       useClass: DemoRolesGuard,
     },
+    {
+      provide:APP_INTERCEPTOR,
+      // 使用全局拦截器
+      useClass:LoggingInterceptor
+    }
   ],
 })
 // 注册中间件

@@ -16,17 +16,21 @@ import {
   ParseIntPipe,
   UseGuards,
   SetMetadata,
+  UseInterceptors,
 } from '@nestjs/common';
 import { PostDataDTO } from './posts.dto';
 import { DemoService } from './providers/demo/demo.service';
 import { DemoFilter } from 'src/core/filters/demo.filter';
 import { DemoAuthGuard } from 'src/core/guards/demo-auth.guard';
 import { Roles } from 'src/core/decorator/roles.decorator';
+import { LoggingInterceptor } from 'src/core/intereptors/logging.interceptor';
 
 @Controller('posts')
 // 增加守卫
-@UseGuards(DemoAuthGuard)
+// @UseGuards(DemoAuthGuard)
 // @UseFilters(DemoFilter)
+// 增加拦截器
+// @UseInterceptors(LoggingInterceptor)
 export class PostsController {
   // 注入依赖的方法1
   // 定义只读 私有属性
