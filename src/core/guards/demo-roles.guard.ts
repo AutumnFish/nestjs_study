@@ -20,8 +20,15 @@ export class DemoRolesGuard implements CanActivate {
     // console.log('handler', context.getHandler());
     // 通过反射获取 设置的 roles
     const roles = this.reflector.get<string[]>('roles',context.getHandler());
-    console.log(roles)
+    // console.log(roles)
 
-    return req.headers['token'] === 'secret';
+    // 获取用户信息
+    const {user} = req;
+
+    // 判断是否符合规则
+    // 允许的角色中，是否在控制器的上面配置了
+    const hasRole = user.roles.some(role=>roles.includes(role))
+
+    return roles&&user&&hasRole;
   }
 }

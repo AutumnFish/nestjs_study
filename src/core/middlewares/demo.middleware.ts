@@ -16,7 +16,7 @@ export class DemoMiddleware implements NestMiddleware {
     }
 
     // 判断token
-    if(req.headers("token")==='secret'){
+    if(req.headers["token"]==='secret'){
       req.user={
         roles:[
           'member'
