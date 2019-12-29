@@ -21,6 +21,7 @@ import { PostDataDTO } from './posts.dto';
 import { DemoService } from './providers/demo/demo.service';
 import { DemoFilter } from 'src/core/filters/demo.filter';
 import { DemoAuthGuard } from 'src/core/guards/demo-auth.guard';
+import { Roles } from 'src/core/decorator/roles.decorator';
 
 @Controller('posts')
 // 增加守卫
@@ -58,7 +59,8 @@ export class PostsController {
   }
   // 添加
   @Post('create')
-  @SetMetadata('roles',['member'])
+  // @SetMetadata('roles',['member'])
+  @Roles('member')
   create(@Body() post: PostDataDTO) {
     // 调用 create方法 创建数据
     this.demoService.create(post);
